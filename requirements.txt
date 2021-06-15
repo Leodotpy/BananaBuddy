@@ -8,6 +8,6 @@ PyGetWindow==0.0.9
 PyMsgBox==1.0.9
 pyperclip==1.8.2
 PyRect==0.1.4
-PyScreeze==0.1.27
+PyScreeze==0.1.26
 PySimpleGUI==4.40.0
 PyTweening==1.0.3
