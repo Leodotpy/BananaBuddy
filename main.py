@@ -11,7 +11,6 @@ import mouse
 import keyboard
 
 import BananaGenerics.bananaController as bCON
-import BananaGenerics.bananaGUI as bGUI
 
 start_time = time.time()
 
@@ -30,17 +29,9 @@ keyboard.add_hotkey("ctrl + k", forceExit)
 speedmultiplier = 20
 banana_offset = 100
 
-controller = bCON.Banana()
-
 # main loop
 
-banana = bGUI.BananaVisualizer(pos=(100, 100))
+banana = bCON.Banana(pos=[100, 100])
 
-banana.createBananaImage()
-
-banana.spawnBanana()
-
-i = 0
 while True:
-    banana.moveBanana((500 + i, 500 + i))
-    i += 1
+    banana.bananastep(mouse.get_position(), 0.1)
