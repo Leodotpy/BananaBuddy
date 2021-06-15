@@ -10,6 +10,8 @@ import pyautogui as pag
 import mouse
 import keyboard
 
+import BananaGenerics.bananaController
+
 start_time = time.time()
 
 screenWidth, screenHeight = pag.size()
@@ -45,7 +47,10 @@ keyboard.add_hotkey("ctrl + k", forceExit)
 speedmultiplier = 20
 banana_offset = 100
 
+banana = BananaGenerics.bananaController.Banana()
+
 # main loop
+
 while True:
     bananaX, bananaY = banana.current_location()[0] -1, banana.current_location()[1] -2
     mouseX, mouseY = mouse.get_position()
