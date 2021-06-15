@@ -7,9 +7,12 @@ class BananaVisualizer:
     bananaWin = None
 
     def __init__(self, pos):
+        self.DISPLAY_TIME_MILLISECONDS = 0
         self.position = pos
-        self.createbananawin(pos)
-        self.FILENAME = ''
+        self.createBananaImage()
+        self.createBananaWin(pos)
+        #self.FILENAME = ''
+
 
     def createBananaImage(self, original_img_dir=r'res/default.png', basewidth=400):
         # create resized banana image
@@ -23,9 +26,8 @@ class BananaVisualizer:
         self.FILENAME = FILENAME
 
     # CREATE BANANA WINDOW ON START
-    def createbananawin(self, pos):
+    def createBananaWin(self, pos):
         # set up transparent banana window
-        DISPLAY_TIME_MILLISECONDS = 0
 
         self.bananaWin = sg.Window('Window Title', [[sg.Image(self.FILENAME)]],
                                    transparent_color=sg.theme_background_color(),
@@ -34,12 +36,13 @@ class BananaVisualizer:
                                    location=pos, alpha_channel=1)
 
     def spawnBanana(self):
-        self.bananaWin.read()
+        self.bananaWin.read(self.DISPLAY_TIME_MILLISECONDS)
 
     # RUNS ON FIXED TIMER IN MAIN, MOVES BANANA TO WHEREVER ITS "MATH" POSITION IS
-    def updatebananapos(self):
+    def updateBananaPos(self):
         pass
 
     # UPDATES THE INTERNAL GUI POSITION VARIABLE
-    def movebanana(self, newPos):
-        self.position = newPos
+    def moveBanana(self, newpos):
+        self.bananaWin.move(newpos[0], newpos[1])
+        self.bananaWin.refresh()

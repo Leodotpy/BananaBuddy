@@ -10,12 +10,12 @@ import pyautogui as pag
 import mouse
 import keyboard
 
-import BananaGenerics.bananaController
+import BananaGenerics.bananaController as bCON
+import BananaGenerics.bananaGUI as bGUI
 
 start_time = time.time()
 
 screenWidth, screenHeight = pag.size()
-
 
 
 # incase the banana gets out of hand,
@@ -23,25 +23,24 @@ def forceExit():
     print("Force Close")
     banana.Close()
     exit()
-keyboard.add_hotkey("ctrl + k", forceExit)
 
+
+keyboard.add_hotkey("ctrl + k", forceExit)
 
 speedmultiplier = 20
 banana_offset = 100
 
-banana = BananaGenerics.bananaController.Banana()
+controller = bCON.Banana()
 
 # main loop
 
+banana = bGUI.BananaVisualizer(pos=(100, 100))
+
+banana.createBananaImage()
+
+banana.spawnBanana()
+
+i = 0
 while True:
-    bananaX, bananaY = banana.current_location()[0] -1, banana.current_location()[1] -2
-    mouseX, mouseY = mouse.get_position()
-
-    dx, dy = (bananaX - mouseX, bananaY - mouseY)
-    stepx, stepy = (dx / (40. * speedmultiplier) , dy / (20.*speedmultiplier))
-
-    banana.move(bananaX - int(stepx * 2), bananaY - int(stepy * 2))
-    print(banana.current_location())
-
-    banana.refresh()
-
+    banana.moveBanana((500 + i, 500 + i))
+    i += 1
