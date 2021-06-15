@@ -11,7 +11,7 @@ class Banana:
 
     def __init__(self, pos, basewidth):
         self.position = pos
-        self.bananaWin = BananaVisualizer(self.position, basewidth)
+        self.bananaWin = BananaVisualizer(self.position)
         self.size = self.bananaWin.bananaWin.size
 
     def bananastep(self, desiredPos, deltaTime):
