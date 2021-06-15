@@ -32,7 +32,7 @@ banana_offset = 100
 
 # main loop
 
-banana = bCON.Banana(pos=[100, pag.size()[1] - 200], basewidth=200)
+banana = bCON.Banana(pos=[100, 220], basewidth=200)
 
 lastTime = time.time_ns()
 while True:

@@ -44,7 +44,7 @@ class BananaVisualizer:
     # GRAPHICS TICK
     # RUNS ON FIXED TIMER IN MAIN, MOVES BANANA TO WHEREVER ITS "MATH" POSITION IS
     def updateWinPos(self):
-        self.bananaWin.move(int(self.position[0]), int(self.position[1]))
+        self.bananaWin.move(int(self.position[0]), int(settings.screen_res[1] - self.position[1] - self.bananaWin.size[1]))
         self.bananaWin.refresh()
 
     # PHYSICS TICK
