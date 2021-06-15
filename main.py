@@ -21,7 +21,7 @@ screenWidth, screenHeight = pag.size()
 # incase the banana gets out of hand,
 def forceExit():
     print("Force Close")
-    banana.Close()
+    banana.bananaWin.Close()
     exit()
 
 

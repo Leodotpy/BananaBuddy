@@ -11,10 +11,7 @@ small_sites_list = [
     "https://www.youtube.com/watch?v=sFukyIIM1XI",
     "https://www.youtube.com/watch?v=LH5ay10RTGY"
 
-
-
 ]
-
 
 webbrowser.open(random.choice(small_sites_list, ))
 
