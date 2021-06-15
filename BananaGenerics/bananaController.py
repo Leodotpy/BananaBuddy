@@ -1,5 +1,7 @@
 import math
 
+import numpy
+
 import settings
 from BananaGenerics.bananaGUI import BananaVisualizer
 
@@ -27,11 +29,8 @@ class Banana:
             self.bananawalkx(desiredPos[0], deltaTime)
             self.speed[0] /= ((settings.dragCoefficient - 1) * deltaTime) + 1
             # attempt jumps
-            for i in range(len(settings.jumpSpeedRetentions)):
-                if not self.grounded:
-                    break
-                if self.jumpingCalculation(i, desiredPos):
-                    self.performJump(i)
+            if self.grounded:
+                self.jumpingCalculation(desiredPos)
         else:
             # apply gravity when not grounded
             self.speed[1] += settings.gravity * deltaTime
@@ -90,37 +89,27 @@ class Banana:
         return 1
 
     # CALCULATE WHETHER A JUMP WILL TOUCH THE MOUSE OR NOT
-    def jumpingCalculation(self, jumpId, desiredPos):
+    def jumpingCalculation(self, desiredPos):
         xdiff = desiredPos[0] - self.position[0]
-        if abs(self.speed[0]) < 1 or settings.jumpSpeedRetentions[jumpId] == 0:
-            if abs(xdiff) < settings.smallestStoppingDistance:
-                self.speed[0] = 0
-                try:
-                    self.speed[1] = math.sqrt((desiredPos[1] - self.size[1] / 2) * -2.0 * settings.gravity)
-                except ValueError:
-                    self.speed[1] = 0
-                self.grounded = False
-            return False
+        # if stationary, perform perfectly vertical jump
+        if self.speed[0] == 0:
+            self.speed[1] = math.sqrt(desiredPos[1] * -2.0 * settings.gravity)
+            self.grounded = False
+            return
         else:
-            jumptime = xdiff / (self.speed[0] * settings.jumpSpeedRetentions[0])
-            if jumptime < 0:
-                return False
+            jumpTime = xdiff / self.speed[0]
+            # negative time doesn't work
+            if jumpTime < 0:
+                return
 
-        # calculate initial vertical speed upon jump based on desired height
-        ySpeedInitial = math.sqrt(
-            (settings.screen_res[1] - self.size[1]) * settings.jumpHeights[jumpId] * -2.0 * settings.gravity)
+            # calculate parabolic path
+            attemptedYSpeed = desiredPos[1]/jumpTime + 0.5*settings.gravity*jumpTime
 
-        # calculate actual jump height based on speed and jump type parameters
-        ydiff = ySpeedInitial * jumptime + (0.5 * settings.gravity * pow(jumptime, 2))
+            # calculate initial vertical speed upon jump based on desired height
+            maxYSpeed = math.sqrt((settings.screen_res[1] - self.size[1]) * -2.0 * settings.gravity)
 
-        if desiredPos[1] - self.size[1] / 4.0 < ydiff < desiredPos[1] + self.size[1] / 4.0:
-            return True
+            if attemptedYSpeed > maxYSpeed:
+                return
 
-        return False
-
-    def performJump(self, jumpId):
-        print(jumpId)
-        self.speed[0] *= settings.jumpSpeedRetentions[jumpId]
-        self.speed[1] = math.sqrt(
-            (settings.screen_res[1] - self.size[1]) * settings.jumpHeights[jumpId] * -2.0 * settings.gravity)
-        self.grounded = False
+            self.speed[1] = attemptedYSpeed
+            self.grounded = False
