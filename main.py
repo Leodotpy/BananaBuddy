@@ -35,8 +35,12 @@ banana_offset = 100
 banana = bCON.Banana(pos=[100, 220], basewidth=200)
 
 lastTime = time.time_ns()
+
+banana.bananaWin.setBananaFacingDirection('right')
+print(banana.bananaWin.direction)
 while True:
     currentTime = time.time_ns()
     deltaTime = (currentTime - lastTime) / settings.nano_const
     lastTime = time.time_ns()
     banana.bananastep(list(mouse.get_position()), deltaTime)
+
