@@ -5,8 +5,6 @@ import settings
 
 
 class BananaVisualizer:
-
-
     position = (0.0, 0.0)
     bananaWin = None
 
@@ -16,11 +14,11 @@ class BananaVisualizer:
         self.position = pos
         self.createBananaImage(basewidth=basewidth)
         self.createBananaWin(pos)
-        #self.FILENAME = ''
+        # self.FILENAME = ''
         self.showBanana()
 
-
-    def createBananaImage(self, original_img_dir=r'res/default.png', basewidth=200):
+    def createBananaImage(self, original_img_dir=r'res/default.png',
+                          basewidth=200):  # default values for default banana
         # create resized banana image
         img = Image.open(original_img_dir)  # if you want to use a file instead of data, then use this in Image Element
         wpercent = (basewidth / float(img.size[0]))
@@ -33,7 +31,6 @@ class BananaVisualizer:
     # CREATE BANANA WINDOW ON START
     def createBananaWin(self, pos):
         # set up transparent banana window
-
         self.bananaWin = sg.Window('Window Title', [[sg.Image(self.FILENAME)]],
                                    transparent_color=sg.theme_background_color(),
                                    no_titlebar=True,
