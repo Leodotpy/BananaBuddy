@@ -19,6 +19,7 @@ class Banana:
 
         self.position[0] += self.speed[0]
         self.position[1] += self.speed[1]
+        self.speed[0] /= (settings.dragCoefficient * deltaTime)
 
         self.bananaWin.moveBanana(newpos=self.position)
 

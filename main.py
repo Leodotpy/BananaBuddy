@@ -11,6 +11,7 @@ import mouse
 import keyboard
 
 import BananaGenerics.bananaController as bCON
+import settings
 
 start_time = time.time()
 
@@ -33,5 +34,9 @@ banana_offset = 100
 
 banana = bCON.Banana(pos=[100, 100])
 
+lastTime = time.time_ns() - 1000000
 while True:
-    banana.bananastep(mouse.get_position(), 0.1)
+    currentTime = time.time_ns()
+    deltaTime = (currentTime - lastTime) / settings.nano_const
+    lastTime = time.time_ns()
+    banana.bananastep(mouse.get_position(), deltaTime)
