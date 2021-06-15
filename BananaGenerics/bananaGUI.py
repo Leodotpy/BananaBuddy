@@ -11,10 +11,10 @@ class BananaVisualizer:
     bananaWin = None
 
     # SETS UP ENTIRE BANANA
-    def __init__(self, pos):
+    def __init__(self, pos, basewidth):
         self.DISPLAY_TIME_MILLISECONDS = 0
         self.position = pos
-        self.createBananaImage()
+        self.createBananaImage(basewidth=basewidth)
         self.createBananaWin(pos)
         #self.FILENAME = ''
         self.showBanana()
@@ -37,7 +37,7 @@ class BananaVisualizer:
         self.bananaWin = sg.Window('Window Title', [[sg.Image(self.FILENAME)]],
                                    transparent_color=sg.theme_background_color(),
                                    no_titlebar=True,
-                                   keep_on_top=True, grab_anywhere=True,
+                                   keep_on_top=True, grab_anywhere=False,
                                    location=pos, alpha_channel=1)
 
     # SHOWS THE BANANA

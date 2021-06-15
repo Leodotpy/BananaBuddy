@@ -32,11 +32,11 @@ banana_offset = 100
 
 # main loop
 
-banana = bCON.Banana(pos=[100, 100])
+banana = bCON.Banana(pos=[100, pag.size()[1] - 200], basewidth=200)
 
-lastTime = time.time_ns() - 1000000
+lastTime = time.time_ns()
 while True:
     currentTime = time.time_ns()
     deltaTime = (currentTime - lastTime) / settings.nano_const
     lastTime = time.time_ns()
-    banana.bananastep(mouse.get_position(), deltaTime)
+    banana.bananastep(list(mouse.get_position()), deltaTime)
