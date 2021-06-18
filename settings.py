@@ -15,6 +15,7 @@ smallestStoppingDistance = 1
 jumpSpeedRetentions = (2, 1, 0)
 jumpHeights = (0.1, 0.5, 1.0)
 
+
 # Get all nessesary monitor dimention information
 monitor_info = GetMonitorInfo(MonitorFromPoint((0, 0)))
 raw_work_area = monitor_info.get("Work")
